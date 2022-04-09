@@ -21,10 +21,11 @@ public class UserController {
     }
 
     // 로그인 요청
-//    @PostMapping("/user/login")
-//    public ResponseDto login(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return userService.login(userDetails);
-//    }
+    @PostMapping("/user/login")
+    public ResponseDto login(@RequestBody SignUpRequestDto requestDto) {
+        System.out.println(requestDto.getUsername());
+        return userService.login(requestDto);
+    }
 
     // 회원가입
     @PostMapping("/user/signup")
@@ -33,19 +34,18 @@ public class UserController {
     }
 
     // 닉네임 중복 검사
-//    @PostMapping("/user/nicknameCheck")
-//    public ResponseDto nicknameCheck(@RequestBody SignUpRequestDto requestDto) {
-//
-//        return ;
-//    }
+    @PostMapping("/user/nicknameCheck")
+    public ResponseDto nicknameCheck(@RequestBody SignUpRequestDto requestDto) {
+        return userService.nicknameCheck(requestDto);
+    }
 
     // 카카오 로그인 인증 코드 전달
     @GetMapping("/user/kakao/callback")
     public ResponseDto kakaoLogin(@RequestParam String code) throws JsonProcessingException {
         // authorizedCode: 카카오 서버로부터 받은 인가 코드
-        kakaoUserService.kakaoLogin(code);
-        return
+        return kakaoUserService.kakaoLogin(code);
     }
+
 }
 
 // https://kauth.kakao.com/oauth/authorize?client_id=5f5b48d19b29e4d68b70219642d9c40d&redirect_uri=http://localhost:8080/user/kakao/callback&response_type=code
