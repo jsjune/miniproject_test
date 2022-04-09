@@ -29,7 +29,7 @@ public class UserService {
         if (found.isPresent()) {
             err_msg = "중복된 ID가 존재합니다.";
             result = false;
-            return new ResponseDto(result, err_msg,nickname);
+            return new ResponseDto(result, err_msg, nickname);
 //            throw new IllegalArgumentException("중복된 ID 존재");
         }
         String password = passwordEncoder.encode(requestDto.getPassword());
@@ -45,7 +45,7 @@ public class UserService {
         User user = new User(username, password, nickname);
         userRepository.save(user);
 
-        ResponseDto responseDto = new ResponseDto(result,err_msg,nickname);
+        ResponseDto responseDto = new ResponseDto(result, err_msg, nickname);
         return responseDto;
 
     }
@@ -64,7 +64,8 @@ public class UserService {
 
     public ResponseDto nicknameCheck(SignUpRequestDto requestDto) {
         Boolean result = true;
-        if (userRepository.findByNickname(requestDto.getNickname())) {
+        Optional<User> user = userRepository.findByNickname(requestDto.getNickname());
+        if (user.isPresent()) {
             result = false;
             return new ResponseDto(result);
         }

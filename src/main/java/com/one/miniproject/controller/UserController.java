@@ -23,7 +23,6 @@ public class UserController {
     // 로그인 요청
     @PostMapping("/user/login")
     public ResponseDto login(@RequestBody SignUpRequestDto requestDto) {
-        System.out.println(requestDto.getUsername());
         return userService.login(requestDto);
     }
 
