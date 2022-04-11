@@ -43,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
 
-                // [로그인 기능]
-                .formLogin().disable()
+//                // [로그인 기능]
+//                .formLogin()
 //                // 로그인 View 제공 (GET /user/login)
 //                .loginPage("/user/login")
 //                // 로그인 처리 (POST /user/login)

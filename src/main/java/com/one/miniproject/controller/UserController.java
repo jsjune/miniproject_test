@@ -26,6 +26,12 @@ public class UserController {
         return userService.login(requestDto);
     }
 
+//    // 로그인 요청
+//    @PostMapping("/user/login")
+//    public ResponseDto login(@RequestBody SignUpRequestDto requestDto) {
+//        return forceLoginTest.login(requestDto);
+//    }
+
     // 회원가입
     @PostMapping("/user/signup")
     public ResponseDto signup(@RequestBody SignUpRequestDto requestDto) {
