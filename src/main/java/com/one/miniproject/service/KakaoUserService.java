@@ -133,7 +133,8 @@ public class KakaoUserService {
         if (kakaoUser == null) {
             // 회원가입
             // username: kakao nickname
-            String nickname = kakaoUserInfo.getNickname();
+//            String nickname = kakaoUserInfo.getNickname();
+            String nickname = null;
 
             // password: random UUID
             String password = UUID.randomUUID().toString();

@@ -1,7 +1,11 @@
 package com.one.miniproject.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@Setter
 @Getter
 public class ResponseDto {
     private boolean result;
@@ -22,6 +26,7 @@ public class ResponseDto {
         this.nickname = nickname;
         this.result = result;
     }
+
 
 
 //    public ResponseDto(String username) {

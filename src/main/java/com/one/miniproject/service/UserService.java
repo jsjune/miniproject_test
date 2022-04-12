@@ -34,14 +34,6 @@ public class UserService {
         }
         String password = passwordEncoder.encode(requestDto.getPassword());
 
-        // 비밀번호 복호화 실험험
-//        System.out.println(password);
-//        System.out.println(requestDto.getPassword());
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        if (!found.isPresent()&&encoder.matches(requestDto.getPassword(), password)) {
-//            System.out.println("실험성공!");
-//        }
-
         User user = new User(username, password, nickname);
         userRepository.save(user);
 
@@ -53,22 +45,31 @@ public class UserService {
     public ResponseDto login(SignUpRequestDto requestDto) {
         Boolean result = false;
         Optional<User> found = userRepository.findByUsername(requestDto.getUsername());
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User user = userRepository.findByUsername(requestDto.getUsername()).orElse(null);
         if (found.isPresent() && passwordEncoder.matches(requestDto.getPassword(), found.get().getPassword())) {
             result = true;
+            return new ResponseDto(user.getNickname(), result);
+        } else {
             return new ResponseDto(result);
         }
-        return new ResponseDto(result);
     }
 
 
     public ResponseDto nicknameCheck(SignUpRequestDto requestDto) {
-        Boolean result = true;
         Optional<User> user = userRepository.findByNickname(requestDto.getNickname());
         if (user.isPresent()) {
-            result = false;
+            Boolean result = false;
+            return new ResponseDto(result);
+        } else {
+            Boolean result = true;
+            String nickname = requestDto.getNickname();
+            Optional<User> kakaoUser = userRepository.findByUsername(requestDto.getUsername());
+            kakaoUser.ifPresent(selectUser->{
+                selectUser.setUsername(kakaoUser.get().getUsername());
+                selectUser.setNickname(nickname);
+                userRepository.save(selectUser);
+            });
             return new ResponseDto(result);
         }
-        return new ResponseDto(result);
     }
 }
